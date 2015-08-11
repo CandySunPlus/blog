@@ -4,6 +4,7 @@ tags: Linux
 categories: Linux
 ---
 **以下操作全部是在 `su` 权限下进行的。**
+<!-- more -->
 
 停止使用tmp文件系统的程序。
 

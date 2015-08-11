@@ -7,6 +7,7 @@ thumbnailImage: http://7xl1ay.com1.z0.glb.clouddn.com/docker.jpg
 Docker 的 `image` 存放位置通过修改服务的 `-g` 选项进行修改。
 
 在 `ubuntu` 上修改 `/etc/default/docker.io`，内容为：
+<!-- more -->
 
 ```bash
 DOCKER_OPTS="-g /path/to/docker/you/want/put"

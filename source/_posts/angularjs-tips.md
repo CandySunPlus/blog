@@ -6,6 +6,7 @@ tags:
 categories: 前端记录
 ---
 可以在 `directive` 的 `link` 方法中直接使用 `translude` 方法来进行内包含元素的挪动， 在挪动的时候可以指定内包含元素的`scope`。
+<!-- more -->
 ```javascript
 app.directive('person', function() {
   return {
