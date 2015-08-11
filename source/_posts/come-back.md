@@ -2,6 +2,8 @@ title: 回归博客
 date: 2015/08/11 18:32:00
 tags: 心情
 categories: 心情
+comments: true
+thumbnailImage: http://7xl1ay.com1.z0.glb.clouddn.com/head.jpg
 ---
 
 想想自从之前BLOG数据丢失被伤到之后，已经三四年没写过博客了。
