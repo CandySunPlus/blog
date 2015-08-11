@@ -1,0 +1,46 @@
+# date format displayed everywhere in the blog
+date_format: "MMM DD, YYYY"
+
+global:
+    home: "主页"
+    categories: "分类"
+    tags: "标签"
+    archives: "归档"
+    search: "查找"
+    about: "关于"
+    github: "GitHub"
+    stack_overflow: "Stack Overflow"
+    twitter: "Twitter"
+    facebook: "Facebook"
+    google_plus: "Google Plus"
+    linked_in: "Linked In"
+    mail: "Mail"
+    rss: "RSS"
+    share_on_google_plus: "Share on Google Plus"
+    share_on_facebook: "Share on Facebook"
+    share_on_twitter: "Share on Twitter"
+    search_category: "搜索分类"
+    search_tag: "搜索标签"
+    search_date: "搜索日期 (YYYY/MM/DD)"
+
+pagination:
+    page: "page"
+    of: "of"
+    newer_posts: "更新的文章"
+    older_posts: "更早的文章"
+    previous: "前一篇"
+    next: "后一篇"
+
+post:
+    no_title : "无标题"
+    categorized_in: "已分类"
+    tagged_in: "已标记"
+    toc: "文章列表"
+    read_more: "继续阅读"
+    go_to_website: "前往站点"
+
+author:
+    # Your biography in english (Markdown and HTML supported)
+    bio: "一名还在经历历练中的全栈工程师"
+    # Your job in english
+    job: "程序员"
