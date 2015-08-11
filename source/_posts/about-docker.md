@@ -7,12 +7,12 @@ thumbnailImage: http://7xl1ay.com1.z0.glb.clouddn.com/docker.jpg
 Docker 的 `image` 存放位置通过修改服务的 `-g` 选项进行修改。
 
 在 `ubuntu` 上修改 `/etc/default/docker.io`，内容为：
-<!-- more -->
 
 ```bash
 DOCKER_OPTS="-g /path/to/docker/you/want/put"
 ```
 
+<!-- more -->
 Docker 会记录 `image` 所有 `build` 的历史，所以 `build` 的过程尽量精简。
 Docker 允许一个 `image` 的操作历史不可以大于 `127` 次。
 Docker 在完成一个项目的 `image` 基础版本 `build` 后，为了去除 `build` 过程中的历史以及当前 `image` 依赖的基础 `image` 的历史，需要从可运行的 `container` 上 `docker export` 一份 `image` 的包，然后通过 `docker import` 进行导入，这样生成的新的 `image` 没有任何历史，可以作为项目的基础镜像。

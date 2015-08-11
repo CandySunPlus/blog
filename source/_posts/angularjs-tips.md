@@ -4,9 +4,9 @@ tags:
 - Javascript
 - AngularJS
 categories: 前端记录
+thumbnailImage: http://7xl1ay.com1.z0.glb.clouddn.com/angular.jpg
 ---
 可以在 `directive` 的 `link` 方法中直接使用 `translude` 方法来进行内包含元素的挪动， 在挪动的时候可以指定内包含元素的`scope`。
-<!-- more -->
 ```javascript
 app.directive('person', function() {
   return {
@@ -30,6 +30,7 @@ app.directive('person', function() {
 });
 
 ```
+<!-- more -->
 可以使用修饰器 `$provide.decorator` 来对第三方的 `directive` 进行二次加工。
 需要在相应 `module` 的 `config` 中针对 `$provide.decorator` 进行配置。
 具体例子[参考](http://angular-tips.com/blog/2013/09/experiment-decorating-directives/)
