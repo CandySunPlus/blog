@@ -83,10 +83,10 @@ sidebar:
         #     url: mailto:
         #     icon: envelope-o
     rss:
-        rss:
-            title: global.rss
-            url: /atom.xml
-            icon: rss
+        # rss:
+        #     title: global.rss
+        #     url: /atom.xml
+        #     icon: rss
 
 
 # Header configuration
