@@ -11,10 +11,10 @@ categories:
 [3]: http://plnkr.co/edit/jwrHVb?p=preview "Demo without Bindonce"
 [4]: http://plnkr.co/edit/0DGOrk?p=preview "Demo with Bindonce"
 最近在开发Hybrid APP (我用的是[Ionic Frameworks][1]) 的过程中，随着首页栏目的逐渐走增加，APP在手机上的执行效率越来越底，有时在切换频道的时候有明显的卡顿和执行延迟。
-<!-- more -->
 
 在检查完代码逻辑和算法后，并没有发现什么问题 （网络通讯，本地缓存）。最近在翻阅代码的过程中，突然意识到可能是由于频道增加，页面中双向绑定使用数量变多，导致 AngularJS 在作 `digest loop` 的时候，由于 `$$watchers` 数量过多导致程序变慢。
 
+<!-- more -->
 要想确定猜想，需要先能统计到页面中随着频道进入`$$watchers`的数量，于是写了如下代码，在Chrome的控制台中执行，便可以方便的进行统计。
 
 ```javascript
