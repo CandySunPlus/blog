@@ -43,21 +43,21 @@ sidebar:
             title: global.archives
             url: /all-archives
             icon: archive
-        search:
-            title: global.search
-            url: /#search
-            icon: search
+        # search:
+        #     title: global.search
+        #     url: /#search
+        #     icon: search
             # `st-search-show-outputs` classes are used to open swiftype search window
-            class: st-search-show-outputs
+            # class: st-search-show-outputs
         about:
             title: global.about
-            url: /#about
+            url: /about
             icon: question
     author_links:
-        # github:
-        #     title: global.github
-        #     url: https://github.com/
-        #     icon: github
+        github:
+            title: global.github
+            url: https://github.com/CandySunPlus
+            icon: github
         # stack_overflow:
         #     title: global.stack_overflow
         #     url: http://stackoverflow.com/users
@@ -78,10 +78,10 @@ sidebar:
         #     title: global.linked_in
         #     url: https://www.linkedin.com/profile/
         #     icon: linkedin
-        # mail:
-        #     title: global.mail
-        #     url: mailto:
-        #     icon: envelope-o
+        mail:
+            title: global.mail
+            url: mailto:s@sfmblog.cn
+            icon: envelope-o
     rss:
         # rss:
         #     title: global.rss
