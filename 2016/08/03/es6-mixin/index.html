@@ -6,23 +6,28 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="凤鸣BLOG">
-    <title>透明穿过跳板机登录服务器 - 凤鸣BLOG</title>
+    <title>ES6 多重继承 - 凤鸣BLOG</title>
     <meta name="author" content="凤鸣 (NikSun)">
     
     
-    <meta name="description" content="很多时候为了保证服务器的安全，一般不允许直接用外网进行 SSH 终端登录，大部分时候会有一个建立一个内网 VPN 或者跳板机，透过这一层网络环境连接目标终端。
-如果是使用的跳板机，那么每次目标终端的登录和文件传输都会增加操作的复杂性，不过我们可以通过 SSH 的 -W [host:port] 命令进行代理。">
+    <meta name="description" content="很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子
+12class Person &amp;#123; ··· &amp;#125;class Employee extends Person &amp;#123; ··· &amp;#125;
+123456class Storage &amp;#123;    save(database) &amp;#123; ··· &amp;#125;&amp;#125;class Validation &amp;#">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="透明穿过跳板机登录服务器">
-<meta property="og:url" content="http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/index.html">
+<meta property="og:title" content="ES6 多重继承">
+<meta property="og:url" content="http://blog.sfmblog.cn/2016/08/03/es6-mixin/index.html">
 <meta property="og:site_name" content="凤鸣BLOG">
-<meta property="og:description" content="很多时候为了保证服务器的安全，一般不允许直接用外网进行 SSH 终端登录，大部分时候会有一个建立一个内网 VPN 或者跳板机，透过这一层网络环境连接目标终端。
-如果是使用的跳板机，那么每次目标终端的登录和文件传输都会增加操作的复杂性，不过我们可以通过 SSH 的 -W [host:port] 命令进行代理。">
-<meta property="og:updated_time" content="2016-06-12T03:05:15.000Z">
+<meta property="og:description" content="很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子
+12class Person &amp;#123; ··· &amp;#125;class Employee extends Person &amp;#123; ··· &amp;#125;
+123456class Storage &amp;#123;    save(database) &amp;#123; ··· &amp;#125;&amp;#125;class Validation &amp;#">
+<meta property="og:image" content="http://blog.sfmblog.cn/media/es6-logo.png">
+<meta property="og:updated_time" content="2016-08-03T03:27:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="透明穿过跳板机登录服务器">
-<meta name="twitter:description" content="很多时候为了保证服务器的安全，一般不允许直接用外网进行 SSH 终端登录，大部分时候会有一个建立一个内网 VPN 或者跳板机，透过这一层网络环境连接目标终端。
-如果是使用的跳板机，那么每次目标终端的登录和文件传输都会增加操作的复杂性，不过我们可以通过 SSH 的 -W [host:port] 命令进行代理。">
+<meta name="twitter:title" content="ES6 多重继承">
+<meta name="twitter:description" content="很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子
+12class Person &amp;#123; ··· &amp;#125;class Employee extends Person &amp;#123; ··· &amp;#125;
+123456class Storage &amp;#123;    save(database) &amp;#123; ··· &amp;#125;&amp;#125;class Validation &amp;#">
+<meta name="twitter:image" content="http://blog.sfmblog.cn/media/es6-logo.png">
 <meta name="twitter:creator" content="@candysunplus">
     
         <meta rel="publisher" content="https://plus.google.com/115493703484390330000"/>
@@ -31,6 +36,9 @@
     
         <meta property="og:image" content="/assets/images/head.jpg"/>
     
+    
+        <meta property="og:image" content="/2016/08/03/es6-mixin/es6-logo"/>
+        <meta class="swiftype" name="image" data-type="enum" content="http://blog.sfmblog.cn/2016/08/03/es6-mixin/es6-logo" />
     
     
     
@@ -169,34 +177,40 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            透明穿过跳板机登录服务器
+            ES6 多重继承
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Wed May 18 2016 11:09:26 GMT+0800">
+    <time itemprop="datePublished" content="Wed Aug 03 2016 11:24:48 GMT+0800">
 	
-		    5月 18, 2016
+		    8月 03, 2016
     	
     </time>
+    
+        <span>已分类 </span>
+        
+    <a class="category-link" href="/categories/前端记录/">前端记录</a>
+
+
     
 </div>
 </div>
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>很多时候为了保证服务器的安全，一般不允许直接用外网进行 <code>SSH</code> 终端登录，大部分时候会有一个建立一个内网 <code>VPN</code> 或者跳板机，透过这一层网络环境连接目标终端。</p>
-<p>如果是使用的跳板机，那么每次目标终端的登录和文件传输都会增加操作的复杂性，不过我们可以通过 <code>SSH</code> 的 <code>-W [host:port]</code> 命令进行代理。</p>
+            <p><img src="/media/es6-logo.png" alt="es6-logo"></p>
+<p>很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123; ··· &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123; ··· &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Storage</span> </span>&#123;</div><div class="line">    save(database) &#123; ··· &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Validation</span> </span>&#123;</div><div class="line">    validate(schema) &#123; ··· &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Invented ES6 syntax:</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Storage</span>, <span class="title">Validation</span>, <span class="title">Person</span> </span>&#123; ··· &#125;</div></pre></td></tr></table></figure>
+<p>但时可悲的是，ES6 中只支持一个继承的对象。</p>
+<p>好在，我们可以使用动态对象的方法来实现多重继承的功能。</p>
 <a id="more"></a>
-<p>首先我们操作本地的 <code>SSH</code> 配置文件， 文件位置如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="regexp">/.ssh/</span>config</div></pre></td></tr></table></figure>
-<p>增加跳板机的配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Host Proxy</div><div class="line">​    HostName &lt;跳板机IP&gt;</div><div class="line">    User &lt;跳板机用户&gt;</div></pre></td></tr></table></figure>
-<p>再在目标终端下配置 <code>ProxyCommand</code> ：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Host Target</div><div class="line">    HostName &lt;目标终端内网IP&gt;</div><div class="line">    User &lt;目标终端用户&gt;</div><div class="line">    ProxyCommand ssh Proxy -W %h:%p</div></pre></td></tr></table></figure>
-<p>这样我们在连接目标终端的时候， 直接执行如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh Target</div></pre></td></tr></table></figure>
-<p>就可以直接穿过跳板连接目标终端了。 同样，使用 <code>SCP</code> 传输文件也变得和没有跳板一样方便了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp &lt;local file&gt; Target:&lt;remote path&gt;</div></pre></td></tr></table></figure>
+<p>我们将需要多重继承的类处理一下， 以方便下方继承链的使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Storage =&gt; Sup = <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Sup</span> </span>&#123;</div><div class="line">	save(database) &#123; ··· &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> Validation =&gt; Sup = <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Sup</span> </span>&#123;</div><div class="line">	validate(schema) &#123; ··· &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在我们要组合上面两个类的行为，只需要</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Storage</span>(<span class="title">Validation</span>(<span class="title">Persion</span>)) </span>&#123; ··· &#125;</div></pre></td></tr></table></figure>
+<p>是不是方便很多？</p>
 
             
                 
@@ -209,7 +223,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">已标记</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Linux/">Linux</a> <a class="tag tag--primary tag--small t-link" href="/tags/SSH/">SSH</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/ES6/">ES6</a> <a class="tag tag--primary tag--small t-link" href="/tags/Javascript/">Javascript</a>
 
             </div>
         
@@ -218,7 +232,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/08/03/es6-mixin/"  data-tooltip="ES6 多重继承">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">前一篇</span>
@@ -226,7 +240,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/09/21/angular-safe-apply/" data-tooltip="Angular中使用$apply的注意事项">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/18/ssh-safe-proxy/" data-tooltip="透明穿过跳板机登录服务器">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">后一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -241,17 +255,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -276,8 +290,8 @@
         
             <!-- 多说评论框 start -->
 <a name="duoshuo_thread"></a>
-<div class="ds-thread" data-thread-key="post-ssh-safe-proxy"
-data-title="透明穿过跳板机登录服务器" data-url="http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/"></div>
+<div class="ds-thread" data-thread-key="post-es6-mixin"
+data-title="ES6 多重继承" data-url="http://blog.sfmblog.cn/2016/08/03/es6-mixin/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -313,7 +327,7 @@ var duoshuoQuery = {short_name:'sfmblog'};
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/08/03/es6-mixin/"  data-tooltip="ES6 多重继承">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">前一篇</span>
@@ -321,7 +335,7 @@ var duoshuoQuery = {short_name:'sfmblog'};
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/09/21/angular-safe-apply/" data-tooltip="Angular中使用$apply的注意事项">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/18/ssh-safe-proxy/" data-tooltip="透明穿过跳板机登录服务器">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">后一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -336,17 +350,17 @@ var duoshuoQuery = {short_name:'sfmblog'};
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -372,17 +386,17 @@ var duoshuoQuery = {short_name:'sfmblog'};
                 <div id="share-options-bar" class="share-options-bar" data-behavior="1">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>

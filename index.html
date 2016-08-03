@@ -162,6 +162,63 @@
 <section class="postShorten-group main-content-wrap">
     
         
+            
+                
+            
+        
+        
+            <article class="postShorten postShorten--thumbnailimg" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2016/08/03/es6-mixin/">ES6 多重继承</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Wed Aug 03 2016 11:24:48 GMT+0800">
+	
+		    8月 03, 2016
+    	
+    </time>
+    
+        <span>已分类 </span>
+        
+    <a class="category-link" href="/categories/前端记录/">前端记录</a>
+
+
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p><img src="/media/es6-logo.png" alt="es6-logo"></p>
+<p>很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123; ··· &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123; ··· &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Storage</span> </span>&#123;</div><div class="line">    save(database) &#123; ··· &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Validation</span> </span>&#123;</div><div class="line">    validate(schema) &#123; ··· &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Invented ES6 syntax:</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Storage</span>, <span class="title">Validation</span>, <span class="title">Person</span> </span>&#123; ··· &#125;</div></pre></td></tr></table></figure>
+<p>但时可悲的是，ES6 中只支持一个继承的对象。</p>
+<p>好在，我们可以使用动态对象的方法来实现多重继承的功能。</p>
+                    
+                    
+                        
+                            <a href="/2016/08/03/es6-mixin/" class="postShorten-excerpt_link link ">继续阅读</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+                <div class="postShorten-thumbnailimg">
+                    <img alt="" itemprop="image" src="http://blog.sfmblog.cn/2016/08/03/es6-mixin/es6-logo"/>
+                </div>
+                
+            
+        </article>
+    
+        
         
                 <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
         
