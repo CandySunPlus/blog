@@ -5,10 +5,8 @@ tags:
 - Javascript
 - ES6
 categories: 前端记录
-thumbnailImage: [es6-logo]
+thumbnailImage: http://7xl1ay.com1.z0.glb.clouddn.com/2016-08-03-es6-logo.png
 ---
-
-![es6-logo](/media/es6-logo.png)
 
 很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子
 
