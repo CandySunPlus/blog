@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="凤鸣BLOG">
+    <title>凤鸣BLOG</title>
+    <meta name="author" content="凤鸣 (NikSun)">
+    
+    
+    <meta name="description" content="一个全栈程序员的自我记录">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="凤鸣BLOG">
+<meta property="og:url" content="http://blog.sfmblog.cn/index.html">
+<meta property="og:site_name" content="凤鸣BLOG">
+<meta property="og:description" content="一个全栈程序员的自我记录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="凤鸣BLOG">
+<meta name="twitter:description" content="一个全栈程序员的自我记录">
+<meta name="twitter:creator" content="@candysunplus">
+    
+        <meta rel="publisher" content="https://plus.google.com/115493703484390330000"/>
+    
+    
+    
+        <meta property="og:image" content="/assets/images/head.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">凤鸣BLOG</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/assets/images/head.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">凤鸣 (NikSun)</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/CandySunPlus" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:s@sfmblog.cn" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">Mail</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<section class="postShorten-group main-content-wrap">
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2016/05/18/ssh-safe-proxy/">透明穿过跳板机登录服务器</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Wed May 18 2016 11:09:26 GMT+0800">
+	
+		    5月 18, 2016
+    	
+    </time>
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p>很多时候为了保证服务器的安全，一般不允许直接用外网进行 <code>SSH</code> 终端登录，大部分时候会有一个建立一个内网 <code>VPN</code> 或者跳板机，透过这一层网络环境连接目标终端。</p>
+<p>如果是使用的跳板机，那么每次目标终端的登录和文件传输都会增加操作的复杂性，不过我们可以通过 <code>SSH</code> 的 <code>-W [host:port]</code> 命令进行代理。</p>
+                    
+                    
+                        
+                            <a href="/2016/05/18/ssh-safe-proxy/" class="postShorten-excerpt_link link ">继续阅读</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+            
+                
+            
+        
+        
+            <article class="postShorten postShorten--thumbnailimg" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2015/09/21/angular-safe-apply/">Angular中使用$apply的注意事项</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Mon Sep 21 2015 16:23:33 GMT+0800">
+	
+		    9月 21, 2015
+    	
+    </time>
+    
+        <span>已分类 </span>
+        
+    <a class="category-link" href="/categories/前端记录/">前端记录</a>
+
+
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p>一般在AngularJS中我们是靠各种框架自己封装的事件中来触发<code>digest loop</code>来达到双向绑定属性脏检查的。有的时候我们对<code>$scope</code>操作的时候，是在AngularJS作用域外进行的，这时候我们会发现双向绑定失效了，因为我们没有触发属性脏检查，这种时候，我们就要用<code>$apply</code>来主动触发<code>digest loop</code>。<br>但是，有时候我们的<code>$apply</code>是处于一个外部的回调中触发的，如果一不小心回调频繁调用了多次，那么就会报错。因为<code>$apply</code>时AngularJS发现程序已经在一个$digest loop过程中了。<br>
+                    
+                    
+                        
+                            <a href="/2015/09/21/angular-safe-apply/" class="postShorten-excerpt_link link ">继续阅读</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+                <div class="postShorten-thumbnailimg">
+                    <img alt="" itemprop="image" src="http://7xl1ay.com1.z0.glb.clouddn.com/angular.jpg"/>
+                </div>
+                
+            
+        </article>
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2015/08/11/count-angularjs-watchers/">统计 AngularJS 中的 Watchers</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Tue Aug 11 2015 22:50:18 GMT+0800">
+	
+		    8月 11, 2015
+    	
+    </time>
+    
+        <span>已分类 </span>
+        
+    <a class="category-link" href="/categories/前端记录/">前端记录</a>
+
+
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p>最近在开发Hybrid APP (我用的是<a href="http://www.ionicframework.com" title="Ionic Frameworks">Ionic Frameworks</a>) 的过程中，随着首页栏目的逐渐增加，APP在手机上的执行效率越来越低，有时在切换频道的时候会有明显的卡顿和执行延迟。</p>
+<p>在检查完代码逻辑和算法后，并没有发现什么问题 （网络通讯，本地缓存）。最近在翻阅代码的过程中，突然意识到可能是由于频道增加，页面中双向绑定使用数量变多，导致 AngularJS 在作 <code>digest loop</code> 的时候，由于 <code>$$watchers</code> 数量过多导致程序变慢。</p>
+                    
+                    
+                        
+                            <a href="/2015/08/11/count-angularjs-watchers/" class="postShorten-excerpt_link link ">继续阅读</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+            
+                
+            
+        
+        
+            <article class="postShorten postShorten--thumbnailimg" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2015/08/11/angularjs-tips/">AngularJS 修饰器技巧</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Tue Aug 11 2015 19:54:22 GMT+0800">
+	
+		    8月 11, 2015
+    	
+    </time>
+    
+        <span>已分类 </span>
+        
+    <a class="category-link" href="/categories/前端记录/">前端记录</a>
+
+
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p>可以在 <code>directive</code> 的 <code>link</code> 方法中直接使用 <code>translude</code> 方法来进行内包含元素的挪动， 在挪动的时候可以指定内包含元素的<code>scope</code>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">app.directive(<span class="string">'person'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    restrict: <span class="string">'EA'</span>,</div><div class="line">    scope: &#123;</div><div class="line">      header: <span class="string">'='</span></div><div class="line">    &#125;,</div><div class="line">    transclude:<span class="literal">true</span>,</div><div class="line">    link: <span class="function"><span class="keyword">function</span>(<span class="params">scope, element, attrs, ctrl, transclude</span>) </span>&#123;</div><div class="line">      scope.person = &#123;</div><div class="line">        name: <span class="string">'Directive Joe'</span>,</div><div class="line">        profession: <span class="string">'Scope guy'</span></div><div class="line">      &#125;;</div><div class="line"></div><div class="line">      scope.header = <span class="string">'Directive\'s header'</span>;</div><div class="line">      transclude(scope, <span class="function"><span class="keyword">function</span>(<span class="params">clone, scope</span>) </span>&#123;</div><div class="line">        element.append(clone);</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+                    
+                    
+                        
+                            <a href="/2015/08/11/angularjs-tips/" class="postShorten-excerpt_link link ">继续阅读</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+                <div class="postShorten-thumbnailimg">
+                    <img alt="" itemprop="image" src="http://7xl1ay.com1.z0.glb.clouddn.com/angular.jpg"/>
+                </div>
+                
+            
+        </article>
+    
+        
+        
+                <article class="postShorten" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2015/08/11/linux-add-tmp/">Linux 增加TMP 分区大小</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Tue Aug 11 2015 19:50:37 GMT+0800">
+	
+		    8月 11, 2015
+    	
+    </time>
+    
+        <span>已分类 </span>
+        
+    <a class="category-link" href="/categories/Linux/">Linux</a>
+
+
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p><strong>以下操作全部是在 <code>su</code> 权限下进行的。</strong></p>
+<p>停止使用tmp文件系统的程序。</p>
+<p>备份tmp：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -prf /tmp /tmp.bak</div></pre></td></tr></table></figure>
+                    
+                    
+                        
+                            <a href="/2015/08/11/linux-add-tmp/" class="postShorten-excerpt_link link ">继续阅读</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+        </article>
+    
+        
+            
+                
+            
+        
+        
+            <article class="postShorten postShorten--thumbnailimg" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2015/08/11/about-docker/">Docker 心得</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Tue Aug 11 2015 19:29:25 GMT+0800">
+	
+		    8月 11, 2015
+    	
+    </time>
+    
+        <span>已分类 </span>
+        
+    <a class="category-link" href="/categories/Linux/">Linux</a>
+
+
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p>Docker 的 <code>image</code> 存放位置通过修改服务的 <code>-g</code> 选项进行修改。</p>
+<p>在 <code>ubuntu</code> 上修改 <code>/etc/default/docker.io</code>，内容为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DOCKER_OPTS=<span class="string">"-g /path/to/docker/you/want/put"</span></div></pre></td></tr></table></figure>
+                    
+                    
+                        
+                            <a href="/2015/08/11/about-docker/" class="postShorten-excerpt_link link ">继续阅读</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+                <div class="postShorten-thumbnailimg">
+                    <img alt="" itemprop="image" src="http://7xl1ay.com1.z0.glb.clouddn.com/docker.jpg"/>
+                </div>
+                
+            
+        </article>
+    
+        
+            
+                
+            
+        
+        
+            <article class="postShorten postShorten--thumbnailimg" itemscope itemType="http://schema.org/BlogPosting">
+        
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2015/08/11/come-back/">回归博客</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Tue Aug 11 2015 18:32:00 GMT+0800">
+	
+		    8月 11, 2015
+    	
+    </time>
+    
+        <span>已分类 </span>
+        
+    <a class="category-link" href="/categories/心情/">心情</a>
+
+
+    
+</div>
+                </div>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    
+                        <p>想想自从之前BLOG数据丢失被伤到之后，已经三四年没写过博客了。<br>但是这三四年中经历的事情，却历历在目。<br>趁自己还记得清楚，有些事情还是要记录一下。<br>
+                    
+                    
+                        
+                            <a href="/2015/08/11/come-back/" class="postShorten-excerpt_link link ">继续阅读</a>
+                            
+                        
+                    
+                    
+                </div>
+            </div>
+            
+                <div class="postShorten-thumbnailimg">
+                    <img alt="" itemprop="image" src="http://7xl1ay.com1.z0.glb.clouddn.com/head.jpg"/>
+                </div>
+                
+            
+        </article>
+    
+    <div class="pagination-bar">
+    <ul class="pagination">
+        
+        
+        <li class="pagination-number">page 1 of 1</li>
+    </ul>
+</div>
+
+</section>
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 凤鸣 (NikSun). All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg"/>
+        
+            <h4 id="about-card-name">凤鸣 (NikSun)</h4>
+        
+            <h5 id="about-card-bio"><p>一名还在历练中的全栈工程师</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                北京
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl1ay.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>

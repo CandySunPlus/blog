@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="凤鸣BLOG">
+    <title>透明穿过跳板机登录服务器 - 凤鸣BLOG</title>
+    <meta name="author" content="凤鸣 (NikSun)">
+    
+    
+    <meta name="description" content="很多时候为了保证服务器的安全，一般不允许直接用外网进行 SSH 终端登录，大部分时候会有一个建立一个内网 VPN 或者跳板机，透过这一层网络环境连接目标终端。
+如果是使用的跳板机，那么每次目标终端的登录和文件传输都会增加操作的复杂性，不过我们可以通过 SSH 的 -W [host:port] 命令进行代理。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="透明穿过跳板机登录服务器">
+<meta property="og:url" content="http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/index.html">
+<meta property="og:site_name" content="凤鸣BLOG">
+<meta property="og:description" content="很多时候为了保证服务器的安全，一般不允许直接用外网进行 SSH 终端登录，大部分时候会有一个建立一个内网 VPN 或者跳板机，透过这一层网络环境连接目标终端。
+如果是使用的跳板机，那么每次目标终端的登录和文件传输都会增加操作的复杂性，不过我们可以通过 SSH 的 -W [host:port] 命令进行代理。">
+<meta property="og:updated_time" content="2016-06-12T03:05:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="透明穿过跳板机登录服务器">
+<meta name="twitter:description" content="很多时候为了保证服务器的安全，一般不允许直接用外网进行 SSH 终端登录，大部分时候会有一个建立一个内网 VPN 或者跳板机，透过这一层网络环境连接目标终端。
+如果是使用的跳板机，那么每次目标终端的登录和文件传输都会增加操作的复杂性，不过我们可以通过 SSH 的 -W [host:port] 命令进行代理。">
+<meta name="twitter:creator" content="@candysunplus">
+    
+        <meta rel="publisher" content="https://plus.google.com/115493703484390330000"/>
+    
+    
+    
+        <meta property="og:image" content="/assets/images/head.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">凤鸣BLOG</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/assets/images/head.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">凤鸣 (NikSun)</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/CandySunPlus" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:s@sfmblog.cn" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">Mail</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            透明穿过跳板机登录服务器
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Wed May 18 2016 11:09:26 GMT+0800">
+	
+		    5月 18, 2016
+    	
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>很多时候为了保证服务器的安全，一般不允许直接用外网进行 <code>SSH</code> 终端登录，大部分时候会有一个建立一个内网 <code>VPN</code> 或者跳板机，透过这一层网络环境连接目标终端。</p>
+<p>如果是使用的跳板机，那么每次目标终端的登录和文件传输都会增加操作的复杂性，不过我们可以通过 <code>SSH</code> 的 <code>-W [host:port]</code> 命令进行代理。</p>
+<a id="more"></a>
+<p>首先我们操作本地的 <code>SSH</code> 配置文件， 文件位置如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~<span class="regexp">/.ssh/</span>config</div></pre></td></tr></table></figure>
+<p>增加跳板机的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Host Proxy</div><div class="line">​    HostName &lt;跳板机IP&gt;</div><div class="line">    User &lt;跳板机用户&gt;</div></pre></td></tr></table></figure>
+<p>再在目标终端下配置 <code>ProxyCommand</code> ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Host Target</div><div class="line">    HostName &lt;目标终端内网IP&gt;</div><div class="line">    User &lt;目标终端用户&gt;</div><div class="line">    ProxyCommand ssh Proxy -W %h:%p</div></pre></td></tr></table></figure>
+<p>这样我们在连接目标终端的时候， 直接执行如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh Target</div></pre></td></tr></table></figure>
+<p>就可以直接穿过跳板连接目标终端了。 同样，使用 <code>SCP</code> 传输文件也变得和没有跳板一样方便了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scp &lt;local file&gt; Target:&lt;remote path&gt;</div></pre></td></tr></table></figure>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">已标记</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Linux/">Linux</a> <a class="tag tag--primary tag--small t-link" href="/tags/SSH/">SSH</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">前一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/09/21/angular-safe-apply/" data-tooltip="Angular中使用$apply的注意事项">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">后一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#duoshuo_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <!-- 多说评论框 start -->
+<a name="duoshuo_thread"></a>
+<div class="ds-thread" data-thread-key="post-ssh-safe-proxy"
+data-title="透明穿过跳板机登录服务器" data-url="http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:'sfmblog'};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0] 
+   || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 凤鸣 (NikSun). All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">前一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/09/21/angular-safe-apply/" data-tooltip="Angular中使用$apply的注意事项">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">后一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#duoshuo_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/05/18/ssh-safe-proxy/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg"/>
+        
+            <h4 id="about-card-name">凤鸣 (NikSun)</h4>
+        
+            <h5 id="about-card-bio"><p>一名还在历练中的全栈工程师</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                北京
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl1ay.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>

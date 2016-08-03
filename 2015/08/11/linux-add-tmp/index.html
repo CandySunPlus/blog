@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="凤鸣BLOG">
+    <title>Linux 增加TMP 分区大小 - 凤鸣BLOG</title>
+    <meta name="author" content="凤鸣 (NikSun)">
+    
+    
+    <meta name="description" content="以下操作全部是在 su 权限下进行的。
+停止使用tmp文件系统的程序。
+备份tmp：
+1$ cp -prf /tmp /tmp.bak">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Linux 增加TMP 分区大小">
+<meta property="og:url" content="http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/index.html">
+<meta property="og:site_name" content="凤鸣BLOG">
+<meta property="og:description" content="以下操作全部是在 su 权限下进行的。
+停止使用tmp文件系统的程序。
+备份tmp：
+1$ cp -prf /tmp /tmp.bak">
+<meta property="og:updated_time" content="2016-06-12T03:05:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 增加TMP 分区大小">
+<meta name="twitter:description" content="以下操作全部是在 su 权限下进行的。
+停止使用tmp文件系统的程序。
+备份tmp：
+1$ cp -prf /tmp /tmp.bak">
+<meta name="twitter:creator" content="@candysunplus">
+    
+        <meta rel="publisher" content="https://plus.google.com/115493703484390330000"/>
+    
+    
+    
+        <meta property="og:image" content="/assets/images/head.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header" data-behavior="1">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">凤鸣BLOG</a>
+    </h1>
+    
+        <a class="header-right-picture" href="/#about">
+            <img class="header-picture" src="/assets/images/head.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar" data-behavior="1">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/head.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name">凤鸣 (NikSun)</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">主页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/CandySunPlus" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:s@sfmblog.cn" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">Mail</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="1"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Linux 增加TMP 分区大小
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Tue Aug 11 2015 19:50:37 GMT+0800">
+	
+		    8月 11, 2015
+    	
+    </time>
+    
+        <span>已分类 </span>
+        
+    <a class="category-link" href="/categories/Linux/">Linux</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p><strong>以下操作全部是在 <code>su</code> 权限下进行的。</strong></p>
+<p>停止使用tmp文件系统的程序。</p>
+<p>备份tmp：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -prf /tmp /tmp.bak</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>创建2G的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ fallocate <span class="_">-l</span> 2G /opt/tmpdisk</div></pre></td></tr></table></figure>
+<p>格式化: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mkfs.ext4 /opt/tmpdisk</div></pre></td></tr></table></figure>
+<p>检查文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ file /opt/tmpdisk</div></pre></td></tr></table></figure>
+<p>卸载tmp：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ umount /tmp</div></pre></td></tr></table></figure>
+<p>挂载tmp：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mount -o loop,nosuid,rw /opt/tmpdisk /tmp</div></pre></td></tr></table></figure>
+<p>修复权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ install <span class="_">-d</span> -m 1777 /tmp</div></pre></td></tr></table></figure>
+<p>增加fstab：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ /opt/tmpdisk /tmp ext4 loop,nosuid,rw 0 0</div></pre></td></tr></table></figure>
+<p>挂载所有：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mount <span class="_">-a</span></div></pre></td></tr></table></figure>
+<p>接下来就可以通过 <code>df -h</code> 来查看一下操作的结果了。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">已标记</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Linux/">Linux</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/08/11/angularjs-tips/"  data-tooltip="AngularJS 修饰器技巧">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">前一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/08/11/about-docker/" data-tooltip="Docker 心得">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">后一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#duoshuo_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <!-- 多说评论框 start -->
+<a name="duoshuo_thread"></a>
+<div class="ds-thread" data-thread-key="post-linux-add-tmp"
+data-title="Linux 增加TMP 分区大小" data-url="http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:'sfmblog'};
+(function() {
+ var ds = document.createElement('script');
+ ds.type = 'text/javascript';ds.async = true;
+ ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ ds.charset = 'UTF-8';
+ (document.getElementsByTagName('head')[0] 
+   || document.getElementsByTagName('body')[0]).appendChild(ds);
+ })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 凤鸣 (NikSun). All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="1">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/08/11/angularjs-tips/"  data-tooltip="AngularJS 修饰器技巧">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">前一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/08/11/about-docker/" data-tooltip="Docker 心得">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">后一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#duoshuo_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="1">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/">
+                <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/">
+                <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/">
+                <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/head.jpg"/>
+        
+            <h4 id="about-card-name">凤鸣 (NikSun)</h4>
+        
+            <h5 id="about-card-bio"><p>一名还在历练中的全栈工程师</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>程序员</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                北京
+            </h5>
+        
+    </div>
+</div>
+
+        <div id="cover" style="background-image:url('http://7xl1ay.com1.z0.glb.clouddn.com/v1.3.0-cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+
+
+</html>
