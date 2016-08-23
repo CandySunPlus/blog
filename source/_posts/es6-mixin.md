@@ -37,10 +37,10 @@ class Employee extends Storage, Validation, Person { ··· }
 我们将需要多重继承的类处理一下， 以方便下方继承链的使用
 
 ```js
-const Storage => Sup = class extends Sup {
+const Storage = Sup => class extends Sup {
 	save(database) { ··· }
 }
-const Validation => Sup = class extends Sup {
+const Validation = Sup => class extends Sup {
 	validate(schema) { ··· }
 }
 ```
