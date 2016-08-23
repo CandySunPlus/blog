@@ -20,7 +20,7 @@
 <meta property="og:description" content="很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子
 12class Person &amp;#123; ··· &amp;#125;class Employee extends Person &amp;#123; ··· &amp;#125;
 123456class Storage &amp;#123;    save(database) &amp;#123; ··· &amp;#125;&amp;#125;class Validation &amp;#1">
-<meta property="og:updated_time" content="2016-08-03T03:33:21.000Z">
+<meta property="og:updated_time" content="2016-08-23T08:56:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6 多重继承">
 <meta name="twitter:description" content="很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子
@@ -204,7 +204,7 @@
 <p>好在，我们可以使用动态对象的方法来实现多重继承的功能。</p>
 <a id="more"></a>
 <p>我们将需要多重继承的类处理一下， 以方便下方继承链的使用</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Storage =&gt; Sup = <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Sup</span> </span>&#123;</div><div class="line">	save(database) &#123; ··· &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> Validation =&gt; Sup = <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Sup</span> </span>&#123;</div><div class="line">	validate(schema) &#123; ··· &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Storage = Sup =&gt; <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Sup</span> </span>&#123;</div><div class="line">	save(database) &#123; ··· &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> Validation = Sup =&gt; <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Sup</span> </span>&#123;</div><div class="line">	validate(schema) &#123; ··· &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>现在我们要组合上面两个类的行为，只需要</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Storage</span>(<span class="title">Validation</span>(<span class="title">Persion</span>)) </span>&#123; ··· &#125;</div></pre></td></tr></table></figure>
 <p>是不是方便很多？</p>
