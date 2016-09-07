@@ -184,23 +184,33 @@
                 </div>
                 <div class="postShorten-excerpt" itemprop="articleBody">
                     
-                        <p>
-                            透明边框需要配合使用 background-clip ，描述如下：
-
-
-
-value
-description
-
-
-
-
-border-box
-The background extends to the outside edge of the border (but underneath the border in z-ordering).
-
-
-padding-box
-No background is<br>
+                        <h3 id="透明边框"><a href="#透明边框" class="headerlink" title="透明边框"></a>透明边框</h3><p>需要配合使用 <code>background-clip</code> ，描述如下：</p>
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>border-box</td>
+<td>The background extends to the outside edge of the border (but underneath the border in z-ordering).</td>
+</tr>
+<tr>
+<td>padding-box</td>
+<td>No background is drawn below the border (background extends to the outside edge of the padding).</td>
+</tr>
+<tr>
+<td>content-box</td>
+<td>The background is painted within (clipped to) the content box.</td>
+</tr>
+<tr>
+<td>text</td>
+<td>The background is painted within (clipped to) the foreground text.</td>
+</tr>
+</tbody>
+</table>
                     
                     
                         
@@ -208,8 +218,6 @@ No background is<br>
                             
                         
                     
-                    
-                        </p>
                     
                 </div>
             </div>
