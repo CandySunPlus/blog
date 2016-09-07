@@ -6,26 +6,65 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="凤鸣BLOG">
-    <title>ES6 多重继承 - 凤鸣BLOG</title>
+    <title>CSS 揭秘 摘抄 - 凤鸣BLOG</title>
     <meta name="author" content="凤鸣 (NikSun)">
     
     
-    <meta name="description" content="很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子
-12class Person &amp;#123; ··· &amp;#125;class Employee extends Person &amp;#123; ··· &amp;#125;
-123456class Storage &amp;#123;    save(database) &amp;#123; ··· &amp;#125;&amp;#125;class Validation &amp;#1">
+    <meta name="description" content="透明边框需要配合使用 background-clip ，描述如下：
+
+
+
+value
+description
+
+
+
+
+border-box
+The background extends to the outside edge of the border (but underneath the border in z-ordering).
+
+
+padding-box
+No background is">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="ES6 多重继承">
-<meta property="og:url" content="http://blog.sfmblog.cn/2016/08/03/es6-mixin/index.html">
+<meta property="og:title" content="CSS 揭秘 摘抄">
+<meta property="og:url" content="http://blog.sfmblog.cn/2016/09/07/css-secrets/index.html">
 <meta property="og:site_name" content="凤鸣BLOG">
-<meta property="og:description" content="很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子
-12class Person &amp;#123; ··· &amp;#125;class Employee extends Person &amp;#123; ··· &amp;#125;
-123456class Storage &amp;#123;    save(database) &amp;#123; ··· &amp;#125;&amp;#125;class Validation &amp;#1">
-<meta property="og:updated_time" content="2016-08-23T08:56:37.000Z">
+<meta property="og:description" content="透明边框需要配合使用 background-clip ，描述如下：
+
+
+
+value
+description
+
+
+
+
+border-box
+The background extends to the outside edge of the border (but underneath the border in z-ordering).
+
+
+padding-box
+No background is">
+<meta property="og:updated_time" content="2016-09-07T05:20:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES6 多重继承">
-<meta name="twitter:description" content="很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子
-12class Person &amp;#123; ··· &amp;#125;class Employee extends Person &amp;#123; ··· &amp;#125;
-123456class Storage &amp;#123;    save(database) &amp;#123; ··· &amp;#125;&amp;#125;class Validation &amp;#1">
+<meta name="twitter:title" content="CSS 揭秘 摘抄">
+<meta name="twitter:description" content="透明边框需要配合使用 background-clip ，描述如下：
+
+
+
+value
+description
+
+
+
+
+border-box
+The background extends to the outside edge of the border (but underneath the border in z-ordering).
+
+
+padding-box
+No background is">
 <meta name="twitter:creator" content="@candysunplus">
     
         <meta rel="publisher" content="https://plus.google.com/115493703484390330000"/>
@@ -34,9 +73,6 @@
     
         <meta property="og:image" content="/assets/images/head.jpg"/>
     
-    
-        <meta property="og:image" content="/2016/08/03/es6-mixin/http:/7xl1ay.com1.z0.glb.clouddn.com/2016-08-03-es6-logo.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="http://blog.sfmblog.cn/2016/08/03/es6-mixin/http://7xl1ay.com1.z0.glb.clouddn.com/2016-08-03-es6-logo.png" />
     
     
     
@@ -175,39 +211,112 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            ES6 多重继承
+            CSS 揭秘 摘抄
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Wed Aug 03 2016 11:24:48 GMT+0800">
+    <time itemprop="datePublished" content="Wed Sep 07 2016 12:30:09 GMT+0800">
 	
-		    8月 03, 2016
+		    9月 07, 2016
     	
     </time>
-    
-        <span>已分类 </span>
-        
-    <a class="category-link" href="/categories/前端记录/">前端记录</a>
-
-
     
 </div>
 </div>
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123; ··· &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123; ··· &#125;</div></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Storage</span> </span>&#123;</div><div class="line">    save(database) &#123; ··· &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Validation</span> </span>&#123;</div><div class="line">    validate(schema) &#123; ··· &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Invented ES6 syntax:</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Storage</span>, <span class="title">Validation</span>, <span class="title">Person</span> </span>&#123; ··· &#125;</div></pre></td></tr></table></figure>
-<p>但时可悲的是，ES6 中只支持一个继承的对象。</p>
-<p>好在，我们可以使用动态对象的方法来实现多重继承的功能。</p>
-<a id="more"></a>
-<p>我们将需要多重继承的类处理一下， 以方便下方继承链的使用</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Storage = Sup =&gt; <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Sup</span> </span>&#123;</div><div class="line">	save(database) &#123; ··· &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> Validation = Sup =&gt; <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Sup</span> </span>&#123;</div><div class="line">	validate(schema) &#123; ··· &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>现在我们要组合上面两个类的行为，只需要</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Storage</span>(<span class="title">Validation</span>(<span class="title">Persion</span>)) </span>&#123; ··· &#125;</div></pre></td></tr></table></figure>
-<p>是不是方便很多？</p>
+            <h3 id="透明边框"><a href="#透明边框" class="headerlink" title="透明边框"></a>透明边框</h3><p>需要配合使用 <code>background-clip</code> ，描述如下：</p>
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>border-box</td>
+<td>The background extends to the outside edge of the border (but underneath the border in z-ordering).</td>
+</tr>
+<tr>
+<td>padding-box</td>
+<td>No background is drawn below the border (background extends to the outside edge of the padding).</td>
+</tr>
+<tr>
+<td>content-box</td>
+<td>The background is painted within (clipped to) the content box.</td>
+</tr>
+<tr>
+<td>text</td>
+<td>The background is painted within (clipped to) the foreground text.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="背景适应盒子内距"><a href="#背景适应盒子内距" class="headerlink" title="背景适应盒子内距"></a>背景适应盒子内距</h3><p>需要配合 <code>background-origin</code>， 描述如下：</p>
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>border-box</td>
+<td>The background extends to the outside edge of the border (but underneath the border in z-ordering).</td>
+</tr>
+<tr>
+<td>padding-box</td>
+<td>No background is drawn below the border (background extends to the outside edge of the padding).</td>
+</tr>
+<tr>
+<td>content-box</td>
+<td>The background is painted within (clipped to) the content box.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="蚂蚁行军线"><a href="#蚂蚁行军线" class="headerlink" title="蚂蚁行军线"></a>蚂蚁行军线</h3><p>结合 <code>border</code> <code>background</code> <code>background-position</code> 能实现出 <code>蚂蚁行军线</code> 的效果</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">keyframes</span> ants &#123;</div><div class="line">	<span class="selector-tag">to</span> &#123;</div><div class="line">		<span class="attribute">background-position</span>: <span class="number">100%</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">div</span> &#123;</div><div class="line">	<span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid transparent;</div><div class="line">	<span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(white, white) padding-box, <span class="built_in">repeating-linear-gradient</span>(-45deg, black 0, black 25%, white 0, white 50%) <span class="number">0</span> / .<span class="number">6em</span> .<span class="number">6em</span>;</div><div class="line">	<span class="attribute">animation</span>: ants <span class="number">12s</span> linear infinite;</div><div class="line">	<span class="attribute">max-width</span>: <span class="number">20em</span>;</div><div class="line">	<span class="attribute">font</span>: <span class="number">100%</span>/<span class="number">1.6</span> Baskerville, Palatino, serif;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="元素裁剪"><a href="#元素裁剪" class="headerlink" title="元素裁剪"></a>元素裁剪</h3><p>使用 <code>clip-path</code>, 描述如下：</p>
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\<clip-source\></clip-source\></td>
+<td>Represents a URL referencing a clip path element.</td>
+</tr>
+<tr>
+<td>\<basic-shape\></basic-shape\></td>
+<td>A basic shape function as defined in the CSS Shapes specification. A basic shape makes use of the specified reference box to size and position the basic shape. If no reference box is specified, the border-box will be used as reference box.</td>
+</tr>
+<tr>
+<td>\<geometry-box\></geometry-box\></td>
+<td>If specified in combination with a <basic-shape>, it provides the reference box for the basic shape. If specified by itself, it uses the edges of the specified box including any corner shaping (e.g. defined by border-radius) as clipping path.</basic-shape></td>
+</tr>
+<tr>
+<td>fill-box</td>
+<td>Uses the object bounding box as reference box.</td>
+</tr>
+<tr>
+<td>stroke-box</td>
+<td>Uses the stroke bounding box as reference box.</td>
+</tr>
+<tr>
+<td>view-box</td>
+<td>Uses the nearest SVG viewport as reference box. If a viewBox attribute is specified for the element creating the SVG viewport, the reference box is positioned at the origin of the coordinate system established by the viewBox attribute and the dimension of the reference box is set to the width and height values of the viewBox attribute.</td>
+</tr>
+<tr>
+<td>none</td>
+<td>There is no clipping path created.</td>
+</tr>
+</tbody>
+</table>
 
             
                 
@@ -220,7 +329,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">已标记</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/ES6/">ES6</a> <a class="tag tag--primary tag--small t-link" href="/tags/Javascript/">Javascript</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/CSS/">CSS</a> <a class="tag tag--primary tag--small t-link" href="/tags/CSS3/">CSS3</a> <a class="tag tag--primary tag--small t-link" href="/tags/前端/">前端</a>
 
             </div>
         
@@ -229,7 +338,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/09/07/css-secrets/"  data-tooltip="CSS 揭秘 摘抄">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">前一篇</span>
@@ -237,7 +346,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/18/ssh-safe-proxy/" data-tooltip="透明穿过跳板机登录服务器">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/08/03/es6-mixin/" data-tooltip="ES6 多重继承">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">后一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -252,17 +361,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/09/07/css-secrets/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/09/07/css-secrets/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/09/07/css-secrets/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -287,8 +396,8 @@
         
             <!-- 多说评论框 start -->
 <a name="duoshuo_thread"></a>
-<div class="ds-thread" data-thread-key="post-es6-mixin"
-data-title="ES6 多重继承" data-url="http://blog.sfmblog.cn/2016/08/03/es6-mixin/"></div>
+<div class="ds-thread" data-thread-key="post-css-secrets"
+data-title="CSS 揭秘 摘抄" data-url="http://blog.sfmblog.cn/2016/09/07/css-secrets/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -324,7 +433,7 @@ var duoshuoQuery = {short_name:'sfmblog'};
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/09/07/css-secrets/"  data-tooltip="CSS 揭秘 摘抄">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">前一篇</span>
@@ -332,7 +441,7 @@ var duoshuoQuery = {short_name:'sfmblog'};
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/18/ssh-safe-proxy/" data-tooltip="透明穿过跳板机登录服务器">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/08/03/es6-mixin/" data-tooltip="ES6 多重继承">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">后一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -347,17 +456,17 @@ var duoshuoQuery = {short_name:'sfmblog'};
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/09/07/css-secrets/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/09/07/css-secrets/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/09/07/css-secrets/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -383,17 +492,17 @@ var duoshuoQuery = {short_name:'sfmblog'};
                 <div id="share-options-bar" class="share-options-bar" data-behavior="1">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.sfmblog.cn/2016/09/07/css-secrets/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.sfmblog.cn/2016/09/07/css-secrets/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/08/03/es6-mixin/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.sfmblog.cn/2016/09/07/css-secrets/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
