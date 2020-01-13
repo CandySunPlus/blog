@@ -16,6 +16,7 @@
 <meta property="og:url" content="http://blog.sfmblog.cn/archives/2015/index.html">
 <meta property="og:site_name" content="凤鸣BLOG">
 <meta property="og:description" content="一个全栈程序员的自我记录">
+<meta property="og:locale" content="zh-cn">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="凤鸣BLOG">
 <meta name="twitter:description" content="一个全栈程序员的自我记录">
@@ -241,7 +242,7 @@
                 </div>
                 <div class="postShorten-excerpt" itemprop="articleBody">
                     
-                        <p>最近在开发Hybrid APP (我用的是<a href="http://www.ionicframework.com" title="Ionic Frameworks">Ionic Frameworks</a>) 的过程中，随着首页栏目的逐渐增加，APP在手机上的执行效率越来越低，有时在切换频道的时候会有明显的卡顿和执行延迟。</p>
+                        <p>最近在开发Hybrid APP (我用的是<a href="http://www.ionicframework.com" title="Ionic Frameworks" target="_blank" rel="noopener">Ionic Frameworks</a>) 的过程中，随着首页栏目的逐渐增加，APP在手机上的执行效率越来越低，有时在切换频道的时候会有明显的卡顿和执行延迟。</p>
 <p>在检查完代码逻辑和算法后，并没有发现什么问题 （网络通讯，本地缓存）。最近在翻阅代码的过程中，突然意识到可能是由于频道增加，页面中双向绑定使用数量变多，导致 AngularJS 在作 <code>digest loop</code> 的时候，由于 <code>$$watchers</code> 数量过多导致程序变慢。</p>
                     
                     
@@ -288,7 +289,7 @@
                 </div>
                 <div class="postShorten-excerpt" itemprop="articleBody">
                     
-                        <p>可以在 <code>directive</code> 的 <code>link</code> 方法中直接使用 <code>translude</code> 方法来进行内包含元素的挪动， 在挪动的时候可以指定内包含元素的<code>scope</code>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">app.directive(<span class="string">'person'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    restrict: <span class="string">'EA'</span>,</div><div class="line">    scope: &#123;</div><div class="line">      header: <span class="string">'='</span></div><div class="line">    &#125;,</div><div class="line">    transclude:<span class="literal">true</span>,</div><div class="line">    link: <span class="function"><span class="keyword">function</span>(<span class="params">scope, element, attrs, ctrl, transclude</span>) </span>&#123;</div><div class="line">      scope.person = &#123;</div><div class="line">        name: <span class="string">'Directive Joe'</span>,</div><div class="line">        profession: <span class="string">'Scope guy'</span></div><div class="line">      &#125;;</div><div class="line"></div><div class="line">      scope.header = <span class="string">'Directive\'s header'</span>;</div><div class="line">      transclude(scope, <span class="function"><span class="keyword">function</span>(<span class="params">clone, scope</span>) </span>&#123;</div><div class="line">        element.append(clone);</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+                        <p>可以在 <code>directive</code> 的 <code>link</code> 方法中直接使用 <code>translude</code> 方法来进行内包含元素的挪动， 在挪动的时候可以指定内包含元素的<code>scope</code>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">app.directive(<span class="string">'person'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    restrict: <span class="string">'EA'</span>,</span><br><span class="line">    scope: &#123;</span><br><span class="line">      header: <span class="string">'='</span></span><br><span class="line">    &#125;,</span><br><span class="line">    transclude:<span class="literal">true</span>,</span><br><span class="line">    link: <span class="function"><span class="keyword">function</span>(<span class="params">scope, element, attrs, ctrl, transclude</span>) </span>&#123;</span><br><span class="line">      scope.person = &#123;</span><br><span class="line">        name: <span class="string">'Directive Joe'</span>,</span><br><span class="line">        profession: <span class="string">'Scope guy'</span></span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      scope.header = <span class="string">'Directive\'s header'</span>;</span><br><span class="line">      transclude(scope, <span class="function"><span class="keyword">function</span>(<span class="params">clone, scope</span>) </span>&#123;</span><br><span class="line">        element.append(clone);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
                     
                     
                         
@@ -338,7 +339,7 @@
                         <p><strong>以下操作全部是在 <code>su</code> 权限下进行的。</strong></p>
 <p>停止使用tmp文件系统的程序。</p>
 <p>备份tmp：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -prf /tmp /tmp.bak</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp -prf /tmp /tmp.bak</span><br></pre></td></tr></table></figure>
                     
                     
                         
@@ -386,7 +387,7 @@
                     
                         <p>Docker 的 <code>image</code> 存放位置通过修改服务的 <code>-g</code> 选项进行修改。</p>
 <p>在 <code>ubuntu</code> 上修改 <code>/etc/default/docker.io</code>，内容为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DOCKER_OPTS=<span class="string">"-g /path/to/docker/you/want/put"</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DOCKER_OPTS=<span class="string">"-g /path/to/docker/you/want/put"</span></span><br></pre></td></tr></table></figure>
                     
                     
                         
@@ -470,7 +471,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2016 凤鸣 (NikSun). All Rights Reserved.
+        Copyrights &copy; 2020 凤鸣 (NikSun). All Rights Reserved.
     </span>
 </footer>
 

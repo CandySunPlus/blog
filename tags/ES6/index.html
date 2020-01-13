@@ -16,6 +16,7 @@
 <meta property="og:url" content="http://blog.sfmblog.cn/tags/ES6/index.html">
 <meta property="og:site_name" content="凤鸣BLOG">
 <meta property="og:description" content="一个全栈程序员的自我记录">
+<meta property="og:locale" content="zh-cn">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="凤鸣BLOG">
 <meta name="twitter:description" content="一个全栈程序员的自我记录">
@@ -195,9 +196,9 @@
                 <div class="postShorten-excerpt" itemprop="articleBody">
                     
                         <p>很多时候，我们需要多重继承来实现组合多个类行为，比如下面的例子</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123; ··· &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123; ··· &#125;</div></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Storage</span> </span>&#123;</div><div class="line">    save(database) &#123; ··· &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Validation</span> </span>&#123;</div><div class="line">    validate(schema) &#123; ··· &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Invented ES6 syntax:</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Storage</span>, <span class="title">Validation</span>, <span class="title">Person</span> </span>&#123; ··· &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123; ··· &#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123; ··· &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Storage</span> </span>&#123;</span><br><span class="line">    save(database) &#123; ··· &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Validation</span> </span>&#123;</span><br><span class="line">    validate(schema) &#123; ··· &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Invented ES6 syntax:</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Storage</span>, <span class="title">Validation</span>, <span class="title">Person</span> </span>&#123; ··· &#125;</span><br></pre></td></tr></table></figure>
 <p>但时可悲的是，ES6 中只支持一个继承的对象。</p>
 <p>好在，我们可以使用动态对象的方法来实现多重继承的功能。</p>
                     
@@ -231,7 +232,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2016 凤鸣 (NikSun). All Rights Reserved.
+        Copyrights &copy; 2020 凤鸣 (NikSun). All Rights Reserved.
     </span>
 </footer>
 

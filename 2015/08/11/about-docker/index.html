@@ -10,22 +10,18 @@
     <meta name="author" content="凤鸣 (NikSun)">
     
     
-    <meta name="description" content="Docker 的 image 存放位置通过修改服务的 -g 选项进行修改。
-在 ubuntu 上修改 /etc/default/docker.io，内容为：
-1DOCKER_OPTS=&quot;-g /path/to/docker/you/want/put&quot;">
+    <meta name="description" content="Docker 的 image 存放位置通过修改服务的 -g 选项进行修改。 在 ubuntu 上修改 /etc/default/docker.io，内容为： 1DOCKER_OPTS=&quot;-g /path/to/docker/you/want/put&quot;">
+<meta name="keywords" content="Docker">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Docker 心得">
 <meta property="og:url" content="http://blog.sfmblog.cn/2015/08/11/about-docker/index.html">
 <meta property="og:site_name" content="凤鸣BLOG">
-<meta property="og:description" content="Docker 的 image 存放位置通过修改服务的 -g 选项进行修改。
-在 ubuntu 上修改 /etc/default/docker.io，内容为：
-1DOCKER_OPTS=&quot;-g /path/to/docker/you/want/put&quot;">
-<meta property="og:updated_time" content="2016-06-12T03:05:15.000Z">
+<meta property="og:description" content="Docker 的 image 存放位置通过修改服务的 -g 选项进行修改。 在 ubuntu 上修改 /etc/default/docker.io，内容为： 1DOCKER_OPTS=&quot;-g /path/to/docker/you/want/put&quot;">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-01-10T04:16:43.294Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 心得">
-<meta name="twitter:description" content="Docker 的 image 存放位置通过修改服务的 -g 选项进行修改。
-在 ubuntu 上修改 /etc/default/docker.io，内容为：
-1DOCKER_OPTS=&quot;-g /path/to/docker/you/want/put&quot;">
+<meta name="twitter:description" content="Docker 的 image 存放位置通过修改服务的 -g 选项进行修改。 在 ubuntu 上修改 /etc/default/docker.io，内容为： 1DOCKER_OPTS=&quot;-g /path/to/docker/you/want/put&quot;">
 <meta name="twitter:creator" content="@candysunplus">
     
         <meta rel="publisher" content="https://plus.google.com/115493703484390330000"/>
@@ -198,32 +194,32 @@
         <div class="main-content-wrap">
             <p>Docker 的 <code>image</code> 存放位置通过修改服务的 <code>-g</code> 选项进行修改。</p>
 <p>在 <code>ubuntu</code> 上修改 <code>/etc/default/docker.io</code>，内容为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DOCKER_OPTS=<span class="string">"-g /path/to/docker/you/want/put"</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DOCKER_OPTS=<span class="string">"-g /path/to/docker/you/want/put"</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>Docker 会记录 <code>image</code> 所有 <code>build</code> 的历史，所以 <code>build</code> 的过程尽量精简。<br>Docker 允许一个 <code>image</code> 的操作历史不可以大于 <code>127</code> 次。<br>Docker 在完成一个项目的 <code>image</code> 基础版本 <code>build</code> 后，为了去除 <code>build</code> 过程中的历史以及当前 <code>image</code> 依赖的基础 <code>image</code> 的历史，需要从可运行的 <code>container</code> 上 <code>docker export</code> 一份 <code>image</code> 的包，然后通过 <code>docker import</code> 进行导入，这样生成的新的 <code>image</code> 没有任何历史，可以作为项目的基础镜像。</p>
 <p>导出过程：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker <span class="built_in">export</span> [container-id] |gzip &gt; /path/to/file.tar.gz</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="built_in">export</span> [container-id] |gzip &gt; /path/to/file.tar.gz</span><br></pre></td></tr></table></figure>
 <p>导入过程：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cat /path/to/file.tar.gz | docker import - [image-name:image-tag]</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat /path/to/file.tar.gz | docker import - [image-name:image-tag]</span><br></pre></td></tr></table></figure>
 <p>用以上方式导出会丢弃历史记录以及 曾经 <code>build</code> 过程中的 <code>ENV</code>, 所以基于此镜像进行更新操作时需要重新定义 <code>ENV</code>。<br>项目镜像后续的更新最好始终基于此项目基础镜像，更新 <code>build</code> 的过程中打一个不同的 <code>tag</code> 以与 基础版本区分，这样能保证后续更新镜像的精简。<br>可以使用 <code>SSH</code> 等方法登入项目基础镜像进行修正。</p>
 <p>修正后需要：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker commit [container-id] [image-name:image-tag]</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker commit [container-id] [image-name:image-tag]</span><br></pre></td></tr></table></figure>
 <p>注意修改版本应当随时同步到远程。<br>运行失败的 <code>container</code> 及时进行删除<br>可以使用 <code>busybox</code> 来设置一个最基础的文件环境</p>
 <p>建立方法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run --name [volume-container-name] -v /path/you/want/create busybox:latest <span class="literal">true</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name [volume-container-name] -v /path/you/want/create busybox:latest <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <p>然后在别的 <code>container</code> 中可以使用这个最基本的文件系统， 多个使用此文件环境的 <code>container</code> 之间的修改是同步的。</p>
 <p>使用过程：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run --volumes-from [volume-container-name] -i -t [image-name:image-tag] /bin/bash</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --volumes-from [volume-container-name] -i -t [image-name:image-tag] /bin/bash</span><br></pre></td></tr></table></figure>
 <p>此时指定挂载的 <code>container</code> 的目录就会出现在当前 <code>container</code> 相对应的位置, 你可以在这里进行任何操作。</p>
 <p>但是我们所做的操作并不会更新到我们用 <code>busybox</code> 建立的 <code>container</code> 中，而且这份文件环境中的数据的生命周期 <strong>不是</strong> 在 这个 <code>busybox container</code> 被 <code>docker rm</code> 掉后就结束的，<strong>他是在所有对他有引用的 <code>container</code> 都被 <code>docker rm</code> 后才会消失的。</strong></p>
 <p>我们要通过以下办法进行数据的备份和还原。 备份的时候使用精简无 <code>entry</code> 的 <code>image</code> 来进行压缩。</p>
 <p>这里使用 <code>busybox</code>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run --volumes-from [volume-container-name] -v /host/path/to/put/backup/file:/backup busybox:latest tar cvf /backup/backup_file.tar /path/need/to/backup</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --volumes-from [volume-container-name] -v /host/path/to/put/backup/file:/backup busybox:latest tar cvf /backup/backup_file.tar /path/need/to/backup</span><br></pre></td></tr></table></figure>
 <p>这样就会把这份文件环境中的数据打一个 <code>tar</code> 的包备份到你指定的位置。</p>
 <p>恢复时要先建立一个基础文件环境：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run --name [volume-container-name] -v /path/you/want/create busybox:latest <span class="literal">true</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name [volume-container-name] -v /path/you/want/create busybox:latest <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <p>然后同样使用没有 <code>entry</code> 的 <code>images</code> 建立 <code>container</code> 解压，这里同样使用 <code>busybox</code>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run --volumes-from [volume-container-name] -v /host/path/to/backup/file:/backup busybox:latest tar xvf /backup/backup_file.tar</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --volumes-from [volume-container-name] -v /host/path/to/backup/file:/backup busybox:latest tar xvf /backup/backup_file.tar</span><br></pre></td></tr></table></figure>
 <p>这样文件环境的内容就回来了，你可以在其他 <code>container</code> 中进行 <code>volumes-from</code> 来使用了。</p>
 
             
@@ -329,7 +325,7 @@ var duoshuoQuery = {short_name:'sfmblog'};
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2016 凤鸣 (NikSun). All Rights Reserved.
+        Copyrights &copy; 2020 凤鸣 (NikSun). All Rights Reserved.
     </span>
 </footer>
 

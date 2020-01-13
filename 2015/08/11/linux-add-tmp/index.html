@@ -10,25 +10,18 @@
     <meta name="author" content="凤鸣 (NikSun)">
     
     
-    <meta name="description" content="以下操作全部是在 su 权限下进行的。
-停止使用tmp文件系统的程序。
-备份tmp：
-1$ cp -prf /tmp /tmp.bak">
+    <meta name="description" content="以下操作全部是在 su 权限下进行的。 停止使用tmp文件系统的程序。 备份tmp： 1$ cp -prf /tmp /tmp.bak">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Linux 增加TMP 分区大小">
 <meta property="og:url" content="http://blog.sfmblog.cn/2015/08/11/linux-add-tmp/index.html">
 <meta property="og:site_name" content="凤鸣BLOG">
-<meta property="og:description" content="以下操作全部是在 su 权限下进行的。
-停止使用tmp文件系统的程序。
-备份tmp：
-1$ cp -prf /tmp /tmp.bak">
-<meta property="og:updated_time" content="2016-06-12T03:05:15.000Z">
+<meta property="og:description" content="以下操作全部是在 su 权限下进行的。 停止使用tmp文件系统的程序。 备份tmp： 1$ cp -prf /tmp /tmp.bak">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-01-10T04:16:43.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 增加TMP 分区大小">
-<meta name="twitter:description" content="以下操作全部是在 su 权限下进行的。
-停止使用tmp文件系统的程序。
-备份tmp：
-1$ cp -prf /tmp /tmp.bak">
+<meta name="twitter:description" content="以下操作全部是在 su 权限下进行的。 停止使用tmp文件系统的程序。 备份tmp： 1$ cp -prf /tmp /tmp.bak">
 <meta name="twitter:creator" content="@candysunplus">
     
         <meta rel="publisher" content="https://plus.google.com/115493703484390330000"/>
@@ -199,24 +192,24 @@
             <p><strong>以下操作全部是在 <code>su</code> 权限下进行的。</strong></p>
 <p>停止使用tmp文件系统的程序。</p>
 <p>备份tmp：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -prf /tmp /tmp.bak</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp -prf /tmp /tmp.bak</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>创建2G的文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ fallocate <span class="_">-l</span> 2G /opt/tmpdisk</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fallocate -l 2G /opt/tmpdisk</span><br></pre></td></tr></table></figure>
 <p>格式化: </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mkfs.ext4 /opt/tmpdisk</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkfs.ext4 /opt/tmpdisk</span><br></pre></td></tr></table></figure>
 <p>检查文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ file /opt/tmpdisk</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ file /opt/tmpdisk</span><br></pre></td></tr></table></figure>
 <p>卸载tmp：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ umount /tmp</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ umount /tmp</span><br></pre></td></tr></table></figure>
 <p>挂载tmp：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mount -o loop,nosuid,rw /opt/tmpdisk /tmp</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mount -o loop,nosuid,rw /opt/tmpdisk /tmp</span><br></pre></td></tr></table></figure>
 <p>修复权限：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ install <span class="_">-d</span> -m 1777 /tmp</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ install -d -m 1777 /tmp</span><br></pre></td></tr></table></figure>
 <p>增加fstab：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ /opt/tmpdisk /tmp ext4 loop,nosuid,rw 0 0</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /opt/tmpdisk /tmp ext4 loop,nosuid,rw 0 0</span><br></pre></td></tr></table></figure>
 <p>挂载所有：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ mount <span class="_">-a</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mount -a</span><br></pre></td></tr></table></figure>
 <p>接下来就可以通过 <code>df -h</code> 来查看一下操作的结果了。</p>
 
             
@@ -322,7 +315,7 @@ var duoshuoQuery = {short_name:'sfmblog'};
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2016 凤鸣 (NikSun). All Rights Reserved.
+        Copyrights &copy; 2020 凤鸣 (NikSun). All Rights Reserved.
     </span>
 </footer>
 

@@ -11,12 +11,14 @@
     
     
     <meta name="description" content="一般在AngularJS中我们是靠各种框架自己封装的事件中来触发digest loop来达到双向绑定属性脏检查的。有的时候我们对$scope操作的时候，是在AngularJS作用域外进行的，这时候我们会发现双向绑定失效了，因为我们没有触发属性脏检查，这种时候，我们就要用$apply来主动触发digest loop。但是，有时候我们的$apply是处于一个外部的回调中触发的，如果一不小心回调频繁调用">
+<meta name="keywords" content="Javascript,AngularJS">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Angular中使用$apply的注意事项">
 <meta property="og:url" content="http://blog.sfmblog.cn/2015/09/21/angular-safe-apply/index.html">
 <meta property="og:site_name" content="凤鸣BLOG">
 <meta property="og:description" content="一般在AngularJS中我们是靠各种框架自己封装的事件中来触发digest loop来达到双向绑定属性脏检查的。有的时候我们对$scope操作的时候，是在AngularJS作用域外进行的，这时候我们会发现双向绑定失效了，因为我们没有触发属性脏检查，这种时候，我们就要用$apply来主动触发digest loop。但是，有时候我们的$apply是处于一个外部的回调中触发的，如果一不小心回调频繁调用">
-<meta property="og:updated_time" content="2016-06-12T03:05:15.000Z">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-01-10T04:16:43.294Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Angular中使用$apply的注意事项">
 <meta name="twitter:description" content="一般在AngularJS中我们是靠各种框架自己封装的事件中来触发digest loop来达到双向绑定属性脏检查的。有的时候我们对$scope操作的时候，是在AngularJS作用域外进行的，这时候我们会发现双向绑定失效了，因为我们没有触发属性脏检查，这种时候，我们就要用$apply来主动触发digest loop。但是，有时候我们的$apply是处于一个外部的回调中触发的，如果一不小心回调频繁调用">
@@ -190,8 +192,8 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>一般在AngularJS中我们是靠各种框架自己封装的事件中来触发<code>digest loop</code>来达到双向绑定属性脏检查的。有的时候我们对<code>$scope</code>操作的时候，是在AngularJS作用域外进行的，这时候我们会发现双向绑定失效了，因为我们没有触发属性脏检查，这种时候，我们就要用<code>$apply</code>来主动触发<code>digest loop</code>。<br>但是，有时候我们的<code>$apply</code>是处于一个外部的回调中触发的，如果一不小心回调频繁调用了多次，那么就会报错。因为<code>$apply</code>时AngularJS发现程序已经在一个$digest loop过程中了。<br><a id="more"></a><br>为了防止这种现象，我们需要在进行<code>$apply</code>时进行检查，可以封装成一个新的方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$scope.safeApply = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> phase = <span class="keyword">this</span>.$root.$$phase;</div><div class="line">  <span class="keyword">if</span>(phase == <span class="string">'$apply'</span> || phase == <span class="string">'$digest'</span>) &#123;</div><div class="line">    <span class="keyword">if</span>(fn &amp;&amp; (<span class="keyword">typeof</span>(fn) === <span class="string">'function'</span>)) &#123;</div><div class="line">      fn();</div><div class="line">    &#125;</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">this</span>.$apply(fn);</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>这样使用：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$scope.safeApply(function() &#123;</div><div class="line">  alert('Now I'm wrapped for protection!');</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+            <p>一般在AngularJS中我们是靠各种框架自己封装的事件中来触发<code>digest loop</code>来达到双向绑定属性脏检查的。有的时候我们对<code>$scope</code>操作的时候，是在AngularJS作用域外进行的，这时候我们会发现双向绑定失效了，因为我们没有触发属性脏检查，这种时候，我们就要用<code>$apply</code>来主动触发<code>digest loop</code>。<br>但是，有时候我们的<code>$apply</code>是处于一个外部的回调中触发的，如果一不小心回调频繁调用了多次，那么就会报错。因为<code>$apply</code>时AngularJS发现程序已经在一个$digest loop过程中了。<br><a id="more"></a><br>为了防止这种现象，我们需要在进行<code>$apply</code>时进行检查，可以封装成一个新的方法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$scope.safeApply = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> phase = <span class="keyword">this</span>.$root.$$phase;</span><br><span class="line">  <span class="keyword">if</span>(phase == <span class="string">'$apply'</span> || phase == <span class="string">'$digest'</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(fn &amp;&amp; (<span class="keyword">typeof</span>(fn) === <span class="string">'function'</span>)) &#123;</span><br><span class="line">      fn();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.$apply(fn);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这样使用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$scope.safeApply(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">'Now I'</span>m wrapped <span class="keyword">for</span> protection!<span class="string">');</span></span><br><span class="line"><span class="string">&#125;);</span></span><br></pre></td></tr></table></figure></p>
 
             
                 
@@ -296,7 +298,7 @@ var duoshuoQuery = {short_name:'sfmblog'};
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2016 凤鸣 (NikSun). All Rights Reserved.
+        Copyrights &copy; 2020 凤鸣 (NikSun). All Rights Reserved.
     </span>
 </footer>
 

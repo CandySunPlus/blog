@@ -10,19 +10,18 @@
     <meta name="author" content="凤鸣 (NikSun)">
     
     
-    <meta name="description" content="最近在开发Hybrid APP (我用的是Ionic Frameworks) 的过程中，随着首页栏目的逐渐增加，APP在手机上的执行效率越来越低，有时在切换频道的时候会有明显的卡顿和执行延迟。
-在检查完代码逻辑和算法后，并没有发现什么问题 （网络通讯，本地缓存）。最近在翻阅代码的过程中，突然意识到可能是由于频道增加，页面中双向绑定使用数量变多，导致 AngularJS 在作 digest loop">
+    <meta name="description" content="最近在开发Hybrid APP (我用的是Ionic Frameworks) 的过程中，随着首页栏目的逐渐增加，APP在手机上的执行效率越来越低，有时在切换频道的时候会有明显的卡顿和执行延迟。 在检查完代码逻辑和算法后，并没有发现什么问题 （网络通讯，本地缓存）。最近在翻阅代码的过程中，突然意识到可能是由于频道增加，页面中双向绑定使用数量变多，导致 AngularJS 在作 digest loop">
+<meta name="keywords" content="Javascript,AngularJS">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="统计 AngularJS 中的 Watchers">
 <meta property="og:url" content="http://blog.sfmblog.cn/2015/08/11/count-angularjs-watchers/index.html">
 <meta property="og:site_name" content="凤鸣BLOG">
-<meta property="og:description" content="最近在开发Hybrid APP (我用的是Ionic Frameworks) 的过程中，随着首页栏目的逐渐增加，APP在手机上的执行效率越来越低，有时在切换频道的时候会有明显的卡顿和执行延迟。
-在检查完代码逻辑和算法后，并没有发现什么问题 （网络通讯，本地缓存）。最近在翻阅代码的过程中，突然意识到可能是由于频道增加，页面中双向绑定使用数量变多，导致 AngularJS 在作 digest loop">
-<meta property="og:updated_time" content="2016-06-12T03:05:15.000Z">
+<meta property="og:description" content="最近在开发Hybrid APP (我用的是Ionic Frameworks) 的过程中，随着首页栏目的逐渐增加，APP在手机上的执行效率越来越低，有时在切换频道的时候会有明显的卡顿和执行延迟。 在检查完代码逻辑和算法后，并没有发现什么问题 （网络通讯，本地缓存）。最近在翻阅代码的过程中，突然意识到可能是由于频道增加，页面中双向绑定使用数量变多，导致 AngularJS 在作 digest loop">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-01-10T04:16:43.294Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="统计 AngularJS 中的 Watchers">
-<meta name="twitter:description" content="最近在开发Hybrid APP (我用的是Ionic Frameworks) 的过程中，随着首页栏目的逐渐增加，APP在手机上的执行效率越来越低，有时在切换频道的时候会有明显的卡顿和执行延迟。
-在检查完代码逻辑和算法后，并没有发现什么问题 （网络通讯，本地缓存）。最近在翻阅代码的过程中，突然意识到可能是由于频道增加，页面中双向绑定使用数量变多，导致 AngularJS 在作 digest loop">
+<meta name="twitter:description" content="最近在开发Hybrid APP (我用的是Ionic Frameworks) 的过程中，随着首页栏目的逐渐增加，APP在手机上的执行效率越来越低，有时在切换频道的时候会有明显的卡顿和执行延迟。 在检查完代码逻辑和算法后，并没有发现什么问题 （网络通讯，本地缓存）。最近在翻阅代码的过程中，突然意识到可能是由于频道增加，页面中双向绑定使用数量变多，导致 AngularJS 在作 digest loop">
 <meta name="twitter:creator" content="@candysunplus">
     
         <meta rel="publisher" content="https://plus.google.com/115493703484390330000"/>
@@ -190,15 +189,15 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>最近在开发Hybrid APP (我用的是<a href="http://www.ionicframework.com" title="Ionic Frameworks" target="_blank" rel="external">Ionic Frameworks</a>) 的过程中，随着首页栏目的逐渐增加，APP在手机上的执行效率越来越低，有时在切换频道的时候会有明显的卡顿和执行延迟。</p>
+            <p>最近在开发Hybrid APP (我用的是<a href="http://www.ionicframework.com" title="Ionic Frameworks" target="_blank" rel="noopener">Ionic Frameworks</a>) 的过程中，随着首页栏目的逐渐增加，APP在手机上的执行效率越来越低，有时在切换频道的时候会有明显的卡顿和执行延迟。</p>
 <p>在检查完代码逻辑和算法后，并没有发现什么问题 （网络通讯，本地缓存）。最近在翻阅代码的过程中，突然意识到可能是由于频道增加，页面中双向绑定使用数量变多，导致 AngularJS 在作 <code>digest loop</code> 的时候，由于 <code>$$watchers</code> 数量过多导致程序变慢。</p>
 <a id="more"></a>
 <p>要想确定猜想，需要先能统计到页面中随着频道进入<code>$$watchers</code>的数量，于是写了如下代码，在Chrome的控制台中执行，便可以方便的进行统计。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getWatchers</span>(<span class="params">root</span>) </span>&#123;</div><div class="line">  root = angular.element(root || <span class="built_in">document</span>.documentElement);</div><div class="line">  <span class="keyword">var</span> watcherCount = <span class="number">0</span>;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getElemWatchers</span>(<span class="params">element</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> isolateWatchers = getWatchersFromScope(element.data().$isolateScope);</div><div class="line">    <span class="keyword">var</span> scopeWatchers = getWatchersFromScope(element.data().$scope);</div><div class="line">    <span class="keyword">var</span> watchers = scopeWatchers.concat(isolateWatchers);</div><div class="line">    angular.forEach(element.children(), <span class="function"><span class="keyword">function</span> (<span class="params">childElement</span>) </span>&#123;</div><div class="line">      watchers = watchers.concat(getElemWatchers(angular.element(childElement)));</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> watchers;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getWatchersFromScope</span>(<span class="params">scope</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (scope) &#123;</div><div class="line">      <span class="keyword">return</span> scope.$$watchers || [];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">return</span> [];</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> getElemWatchers(root);</div><div class="line">&#125;</div><div class="line">getWatchers().length</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getWatchers</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">  root = angular.element(root || <span class="built_in">document</span>.documentElement);</span><br><span class="line">  <span class="keyword">var</span> watcherCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getElemWatchers</span>(<span class="params">element</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> isolateWatchers = getWatchersFromScope(element.data().$isolateScope);</span><br><span class="line">    <span class="keyword">var</span> scopeWatchers = getWatchersFromScope(element.data().$scope);</span><br><span class="line">    <span class="keyword">var</span> watchers = scopeWatchers.concat(isolateWatchers);</span><br><span class="line">    angular.forEach(element.children(), <span class="function"><span class="keyword">function</span> (<span class="params">childElement</span>) </span>&#123;</span><br><span class="line">      watchers = watchers.concat(getElemWatchers(angular.element(childElement)));</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> watchers;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">getWatchersFromScope</span>(<span class="params">scope</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (scope) &#123;</span><br><span class="line">      <span class="keyword">return</span> scope.$$watchers || [];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> [];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> getElemWatchers(root);</span><br><span class="line">&#125;</span><br><span class="line">getWatchers().length</span><br></pre></td></tr></table></figure>
 <p>随即发现，在频道页面不断加载的过程中， <code>$$watchers</code>的数量在不断增加，最多的时候有 5000个之多。</p>
-<p>发现问题就好解决了。由于频道内容列表页面在一次加载后就不需要再进行变化监听，所以这里打算对代码中的<code>data-binding</code> 部分使用 <a href="https://github.com/Pasvaz/bindonce" title="AngularJS Bindonce" target="_blank" rel="external">bindonce</a> 的方式解决。</p>
-<p>这里还有两个关于 <a href="https://github.com/Pasvaz/bindonce" title="AngularJS Bindonce" target="_blank" rel="external">bindonce</a> 的示例：</p>
-<p><a href="http://plnkr.co/edit/jwrHVb?p=preview" title="Demo without Bindonce" target="_blank" rel="external">使用AngularJS 原有Bind</a><br><a href="http://plnkr.co/edit/0DGOrk?p=preview" title="Demo with Bindonce" target="_blank" rel="external">使用Bindonce</a></p>
+<p>发现问题就好解决了。由于频道内容列表页面在一次加载后就不需要再进行变化监听，所以这里打算对代码中的<code>data-binding</code> 部分使用 <a href="https://github.com/Pasvaz/bindonce" title="AngularJS Bindonce" target="_blank" rel="noopener">bindonce</a> 的方式解决。</p>
+<p>这里还有两个关于 <a href="https://github.com/Pasvaz/bindonce" title="AngularJS Bindonce" target="_blank" rel="noopener">bindonce</a> 的示例：</p>
+<p><a href="http://plnkr.co/edit/jwrHVb?p=preview" title="Demo without Bindonce" target="_blank" rel="noopener">使用AngularJS 原有Bind</a><br><a href="http://plnkr.co/edit/0DGOrk?p=preview" title="Demo with Bindonce" target="_blank" rel="noopener">使用Bindonce</a></p>
 
             
                 
@@ -303,7 +302,7 @@ var duoshuoQuery = {short_name:'sfmblog'};
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2016 凤鸣 (NikSun). All Rights Reserved.
+        Copyrights &copy; 2020 凤鸣 (NikSun). All Rights Reserved.
     </span>
 </footer>
 

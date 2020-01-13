@@ -10,61 +10,18 @@
     <meta name="author" content="凤鸣 (NikSun)">
     
     
-    <meta name="description" content="透明边框需要配合使用 background-clip ，描述如下：
-
-
-
-value
-description
-
-
-
-
-border-box
-The background extends to the outside edge of the border (but underneath the border in z-ordering).
-
-
-padding-box
-No background is">
+    <meta name="description" content="透明边框需要配合使用 background-clip ，描述如下：    value description     border-box The background extends to the outside edge of the border (but underneath the border in z-ordering).   padding-box No background is">
+<meta name="keywords" content="CSS,CSS3,前端">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="CSS 揭秘 摘抄">
 <meta property="og:url" content="http://blog.sfmblog.cn/2016/09/07/css-secrets/index.html">
 <meta property="og:site_name" content="凤鸣BLOG">
-<meta property="og:description" content="透明边框需要配合使用 background-clip ，描述如下：
-
-
-
-value
-description
-
-
-
-
-border-box
-The background extends to the outside edge of the border (but underneath the border in z-ordering).
-
-
-padding-box
-No background is">
-<meta property="og:updated_time" content="2016-09-07T05:25:17.000Z">
+<meta property="og:description" content="透明边框需要配合使用 background-clip ，描述如下：    value description     border-box The background extends to the outside edge of the border (but underneath the border in z-ordering).   padding-box No background is">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2020-01-10T04:16:43.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS 揭秘 摘抄">
-<meta name="twitter:description" content="透明边框需要配合使用 background-clip ，描述如下：
-
-
-
-value
-description
-
-
-
-
-border-box
-The background extends to the outside edge of the border (but underneath the border in z-ordering).
-
-
-padding-box
-No background is">
+<meta name="twitter:description" content="透明边框需要配合使用 background-clip ，描述如下：    value description     border-box The background extends to the outside edge of the border (but underneath the border in z-ordering).   padding-box No background is">
 <meta name="twitter:creator" content="@candysunplus">
     
         <meta rel="publisher" content="https://plus.google.com/115493703484390330000"/>
@@ -278,7 +235,7 @@ No background is">
 </tbody>
 </table>
 <h3 id="蚂蚁行军线"><a href="#蚂蚁行军线" class="headerlink" title="蚂蚁行军线"></a>蚂蚁行军线</h3><p>结合 <code>border</code> <code>background</code> <code>background-position</code> 能实现出 <code>蚂蚁行军线</code> 的效果</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">keyframes</span> ants &#123;</div><div class="line">	<span class="selector-tag">to</span> &#123;</div><div class="line">		<span class="attribute">background-position</span>: <span class="number">100%</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="selector-tag">div</span> &#123;</div><div class="line">	<span class="attribute">padding</span>: <span class="number">1em</span>;</div><div class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid transparent;</div><div class="line">	<span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(white, white) padding-box, <span class="built_in">repeating-linear-gradient</span>(-45deg, black 0, black 25%, white 0, white 50%) <span class="number">0</span> / .<span class="number">6em</span> .<span class="number">6em</span>;</div><div class="line">	<span class="attribute">animation</span>: ants <span class="number">12s</span> linear infinite;</div><div class="line">	<span class="attribute">max-width</span>: <span class="number">20em</span>;</div><div class="line">	<span class="attribute">font</span>: <span class="number">100%</span>/<span class="number">1.6</span> Baskerville, Palatino, serif;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> ants &#123;</span><br><span class="line">	<span class="selector-tag">to</span> &#123;</span><br><span class="line">		<span class="attribute">background-position</span>: <span class="number">100%</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">1em</span>;</span><br><span class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid transparent;</span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(white, white) padding-box, <span class="built_in">repeating-linear-gradient</span>(-<span class="number">45deg</span>, black <span class="number">0</span>, black <span class="number">25%</span>, white <span class="number">0</span>, white <span class="number">50%</span>) <span class="number">0</span> / .<span class="number">6em</span> .<span class="number">6em</span>;</span><br><span class="line">	<span class="attribute">animation</span>: ants <span class="number">12s</span> linear infinite;</span><br><span class="line">	<span class="attribute">max-width</span>: <span class="number">20em</span>;</span><br><span class="line">	<span class="attribute">font</span>: <span class="number">100%</span>/<span class="number">1.6</span> Baskerville, Palatino, serif;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="元素裁剪"><a href="#元素裁剪" class="headerlink" title="元素裁剪"></a>元素裁剪</h3><p>使用 <code>clip-path</code>, 描述如下：</p>
 <table>
 <thead>
@@ -422,7 +379,7 @@ var duoshuoQuery = {short_name:'sfmblog'};
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2016 凤鸣 (NikSun). All Rights Reserved.
+        Copyrights &copy; 2020 凤鸣 (NikSun). All Rights Reserved.
     </span>
 </footer>
 
